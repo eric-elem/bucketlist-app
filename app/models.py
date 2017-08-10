@@ -76,7 +76,7 @@ class Bucket:
                     if not new_description in self.items:
                         if description in self.items:
                             self.items[new_description] = self.items.pop(description)
-                            return "Item description updated"
+                            return "Item updated"
                         return "Item not found"
                     return "New description already in bucket"
                 return "No changes"
@@ -89,8 +89,10 @@ class Bucket:
             if description.strip() and status.strip():
                 if description in self.items:
                     if status == "Pending" or status == "Done":
-                        self.items[description].status = status
-                        return "Status updated"
+                        if not self.items[description].status == status:
+                            self.items[description].status = status
+                            return "Item updated"
+                        return "No changes"
                     return "Invalid status"
                 return "Item not found"
             return "Blank input"
@@ -106,6 +108,20 @@ class Bucket:
                 return "Item not found"
             return "Blank input"
         return "None input"
+
+    def get_items_count(self):
+        """ Counts items in a bucket """
+        return len(self.items)
+
+    def get_progress(self):
+        """ Gives progress in doing items in a bucket """
+        progress = 0
+        if self.items:
+            for item in self.items.values():
+                if item.status == 'Done':
+                    progress += 1
+            return round(100*progress/len(self.items))
+        return 0
 
 class Item:
     """ Describes the item model """
