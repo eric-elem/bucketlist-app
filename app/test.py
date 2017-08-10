@@ -1,13 +1,13 @@
 """ This module tests all functions in the bucketlist app """
 import unittest
-from views import register, login
+from views import register, login, USERS
 from models import User, Bucket
 class TestViewMethods(unittest.TestCase):
     """ This class tests methods of the views module """
     def setUp(self):
         self.name = "Eric Elem"
         self.correct_username = "eric.elem"
-        self.short_username = "eric"
+        self.short_username = "eri"
         self.long_username = "ericnelsonelem"
         self.invalid_chars_username = "eric@elem"
         self.correct_password = "password"
@@ -16,19 +16,28 @@ class TestViewMethods(unittest.TestCase):
 
     def test_register(self):
         """ Tests the register method of the views class against various inputs """
-        self.assertEqual(register(None, None, None), "None input")
-        self.assertEqual(register("  ", " ", "  "), "Blank input")
-        self.assertEqual(register(self.name, self.short_username, self.correct_password),
-                         "Username length should be from 6 to 10 characters")
-        self.assertEqual(register(self.name, self.long_username, self.correct_password),
-                         "Username length should be from 6 to 10 characters")
-        self.assertEqual(register(self.name, self.correct_username, self.short_pass),
-                         "Password length should be from 6 to 10 characters")
-        self.assertEqual(register(self.name, self.correct_username, self.long_pass),
-                         "Password length should be from 6 to 10 characters")
-        self.assertEqual(register(self.name, self.invalid_chars_username, self.correct_password),
-                         "Username contains illegal characters")
-        self.assertEqual(register(self.name, self.correct_username, self.correct_password),
+        self.assertEqual(register(None, None, None, None), "None input")
+        self.assertEqual(register("  ", " ", "  ", " "), "Blank input")
+        self.assertEqual(register(self.name, self.short_username,
+                                  self.correct_password, self.correct_password),
+                         "Username should be 4 to 10 characters")
+        self.assertEqual(register(self.name, self.long_username, self.correct_password,
+                                  self.correct_password),
+                         "Username should be 4 to 10 characters")
+        self.assertEqual(register(self.name, self.correct_username, self.short_pass,
+                                  self.short_pass),
+                         "Password should be 6 to 10 characters")
+        self.assertEqual(register(self.name, self.correct_username, self.long_pass,
+                                  self.long_pass),
+                         "Password should be 6 to 10 characters")
+        self.assertEqual(register(self.name, self.invalid_chars_username, self.correct_password,
+                                  self.correct_password),
+                         "Illegal characters in username")
+        self.assertEqual(register(self.name, self.correct_username, self.correct_password,
+                                  self.long_pass),
+                         "Passwords don't match")
+        self.assertEqual(register(self.name, self.correct_username, self.correct_password,
+                                  self.correct_password),
                          "Registration successful")
 
     def test_login(self):
@@ -36,7 +45,9 @@ class TestViewMethods(unittest.TestCase):
         self.assertEqual(login(None, None), "None input")
         self.assertEqual(login(" ", " "), "Blank input")
         self.assertEqual(login("unknownuser", "unknownpass"), "User not found")
-        self.assertEqual(login("eric.elem", "wrongpass"), "Wrong password")
+        USERS[self.correct_username] = User(self.name, self.correct_username,
+                                            self.correct_password)
+        self.assertEqual(login(self.correct_username, "wrongpass"), "Wrong password")
         self.assertEqual(login(self.correct_username, self.correct_password), "Login successful")
 
 class TestModelsMethods(unittest.TestCase):
