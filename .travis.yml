@@ -7,7 +7,7 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 
-script: python app/test.py
+script: coverage run --source=app app/test.py
 
 repo_token: NEbS5U6ajBfbK8RyWIyGeRXlSyTQKNCeW
 
