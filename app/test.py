@@ -126,7 +126,7 @@ class TestModelsMethods(unittest.TestCase):
         self.assertEqual(bucket.update_description("Get schooled", "Travel Africa"),
                          "New description already in bucket")
         self.assertEqual(bucket.update_description("Get schooled", "Travel Europe"),
-                         "Item description updated")
+                         "Item updated")
 
     def test_update_status(self):
         """ Tests updating item status """
@@ -138,7 +138,7 @@ class TestModelsMethods(unittest.TestCase):
         bucket.add_item("Travel Africa")
         self.assertEqual(bucket.update_status("Get schooled", "The status"), "Invalid status")
         self.assertEqual(bucket.update_status("Travel Africa", "Done"),
-                         "Status updated")
+                         "Item updated")
 
     def test_delete_item(self):
         """ Tests deleting an item from a bucket """
