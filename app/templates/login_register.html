@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-8 offset-xs-2 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <div class="card mt-5 border-0">
+                <div class="card-block bg-primary">
+                    <h1 class="text-white text-center pt-5 pb-5">BUCKET LIST</h1>
+                </div>
+                <div class="card-block">
+                    <ul class="nav nav-tabs">
+                        {% if "/sign_in" in request.path %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/sign_in">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/sign_up">Sign up</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/sign_in">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/sign_up">Sign up</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="card-block">   
+                    {% include 'includes/_messages.html' %}                 
+                    {% block form %}
+                    
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div> 
+{% endblock %}

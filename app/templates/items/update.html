@@ -1,0 +1,24 @@
+{% extends 'items/read.html' %}
+{% block form %}
+    <div class="card"> 
+        <div class="card-block">
+            <h6 class="text-muted card-title mb-4">UPDATE ITEM</h6>
+            <form class="form-inline ml-3" method="POST">
+                <label for="itemname" class="mr-2 text-muted"><h6>Item name</h6></label>
+                <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0 col-md-6" id="itemname" name="description" value="{{ item.description }}" placeholder="e.g Travel to all the countries in East Africa" required>
+                <label for="status" class="mr-2 ml-2 text-muted"><h6>Status</h6></label>
+                <select name="status" class="custom-select mr-2" id="status">
+                    {% if item.status=="Pending" %}
+                        <option value="Pending" selected>Pending</option>
+                        <option value="Done">Done</option>
+                    {% else %}
+                        <option value="Pending">Pending</option>
+                        <option value="Done" selected>Done</option>
+                    {% endif %}
+                </select>
+                <button type="submit" class="btn btn-primary mr-2"> Save </button>
+                <a href="{{ url_for('read_items',bucket_title=session['bucket_title']) }}" class="btn text-muted fa fa-times"></a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

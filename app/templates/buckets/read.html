@@ -1,0 +1,26 @@
+{% extends 'lists.html' %}
+{% block heading %} 
+    <a class="text-muted">MY BUCKETS</a>
+    <a href="{{ url_for('create_bucket') }}" class="btn text-muted">Add bucket</a>                
+{% endblock %}
+{% block list %}
+    {% block form %}
+
+    {% endblock %}
+    {% if buckets %}
+        {% for name, bucket in buckets.items() %}
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <a href="{{ url_for('read_items',bucket_title=name) }}" class="text-muted"><h6 class="mb-1">{{ name }}</h6></a>
+                    <div>
+                        <a href="{{ url_for('update_bucket',title=name) }}" class="text-muted"><span class="fa fa-pencil-square-o"></span></a>
+                        <a href="{{ url_for('delete_bucket',title=name) }}" class="text-muted"><span class="fa fa-trash"></span></a>
+                    </div>
+                </div>
+                <small>Items: {{ bucket.get_items_count() }} Progress: {{ bucket.get_progress() }}%</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="list-group-item">Add buckets. They will be displayed here.</div>
+    {% endif %} 
+{% endblock %}   

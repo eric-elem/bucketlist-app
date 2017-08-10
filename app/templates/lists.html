@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% include 'includes/_navbar.html' %}
+    <div class="container">
+        {% block content %}
+            <div class="list-group mt-5">
+                <div class="list-group-item justify-content-between">
+                    {% block heading %} 
+                        
+                    {% endblock %}                    
+                </div>
+                {% include 'includes/_messages.html' %}
+                {% block list %}
+                    
+                {% endblock %}                 
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

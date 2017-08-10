@@ -1,0 +1,14 @@
+{% extends 'buckets/read.html' %}
+{% block form %}
+    <div class="card"> 
+        <div class="card-block">
+            <h6 class="text-muted card-title mb-4">CREATE BUCKET</h6>
+            <form class="form-inline ml-3" method="POST" >
+                <label for="bucketname" class="mr-2 text-muted"><h6>Bucket title</h6></label>
+                <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0 col-md-6" id="bucketname" name="title" placeholder="e.g Things to do before I am 30 years old" required>
+                <button type="submit" class="btn btn-primary mr-2">Create</button>
+                <a href="{{ url_for('read_buckets') }}" class="btn text-muted fa fa-times"></a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
