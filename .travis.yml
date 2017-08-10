@@ -3,6 +3,13 @@ python:
   - "3.6"
 
 env: null
-install: "pip install -r requirements.txt"
+install: 
+  - pip install -r requirements.txt
+  - pip install coveralls
 
 script: python app/test.py
+
+repo_token: NEbS5U6ajBfbK8RyWIyGeRXlSyTQKNCeW
+
+after_success:
+  - coveralls
